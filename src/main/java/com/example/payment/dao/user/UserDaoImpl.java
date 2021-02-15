@@ -1,0 +1,67 @@
+package com.example.payment.dao.user;
+
+import com.example.payment.dao.JDBCDao;
+import com.example.payment.entity.User;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Optional;
+
+public class UserDaoImpl  extends JDBCDao<User> implements UserDao {
+    private final String FIND_USER_BY_USERNAME = "SELECT * FROM user WHERE username = ?";
+
+
+    public UserDaoImpl(Connection connection) {
+        super(
+                connection,
+                "INSERT INTO user(firs_name, last_name, username, password, role,active) VALUES(?,?,?,?,?,?)",
+                "SELECT * FROM user WHERE id = ?",
+                "SELECT SQL_CALC_FOUND_ROWS * FROM user LIMIT ?,?",
+                "SELECT * FROM user",
+                "SELECT COUNT(*)FROM user",
+                "COUNT(*)",
+                "UPDATE user SET firs_name = ?, last_name = ?, active = ?, username = ?, password = ?, role = ? WHERE id = ?",
+                8,
+                "DELETE FROM user WHERE id = ?",
+                new UserMapper());
+    }
+
+
+    @Override
+    protected long getId(User entity) {
+        return entity.getId();
+    }
+
+    @Override
+    protected void setId(User entity, long id) throws SQLException {
+        entity.setId(id);
+    }
+
+    @Override
+    protected void setEntityValues(PreparedStatement statement, User entity) throws SQLException {
+        statement.setString(1, entity.getFirs_name());
+        statement.setString(2, entity.getLast_name());
+        statement.setString(3, entity.getUsername());
+        statement.setString(4, entity.getPassword());
+        statement.setString(5, entity.getRole().name());
+        statement.setBoolean(6, entity.isActive());
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        User entity = null;
+
+        try (PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_USERNAME)) {
+            statement.setString(1, username);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                entity = extractEntity(result);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Optional.ofNullable(entity);
+    }
+}
