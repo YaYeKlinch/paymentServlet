@@ -47,7 +47,7 @@
                 <input type="text" class="form-control" name="last_name" required="required" value="${values.last_name}"/>
             </div>
             <div class="form-group">
-                <label><fmt:message key="registration.email"/></label>
+                <label><fmt:message key="text.email"/></label>
                 <c:if test="${!empty requestScope.emailEmpty}">
                     <div class="alert-danger error-message" >
                         <fmt:message key="field.empty" />
@@ -67,7 +67,7 @@
 
             </div>
             <div class="form-group">
-                <label><fmt:message key="registration.password"/></label>
+                <label><fmt:message key="text.password"/></label>
                 <c:if test="${!empty requestScope.passwordEmpty}">
                     <div class="alert-danger error-message" >
                         <fmt:message key="field.empty" />

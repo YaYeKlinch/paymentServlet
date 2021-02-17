@@ -13,7 +13,7 @@ import java.nio.file.attribute.UserDefinedFileAttributeView;
 
 public class PostRegister implements Command {
 
-    private UserService userService = new UserServiceImpl();
+    private final UserService userService = new UserServiceImpl();
     private boolean allMatches;
     private static final String URL_ERROR = "/register.jsp";
     private static final String URL_SUCCESS = "/login.jsp";

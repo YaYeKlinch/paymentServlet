@@ -2,11 +2,13 @@ package com.example.payment.service.user;
 
 import com.example.payment.dao.DaoFactory;
 import com.example.payment.dao.user.UserDao;
-import com.example.payment.dao.user.UserDaoImpl;
 import com.example.payment.entity.Role;
 import com.example.payment.entity.User;
 import com.example.payment.entity.dto.UserDto;
 import com.example.payment.exception.EmailExistsException;
+
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UserServiceImpl implements UserService {
 
@@ -29,6 +31,23 @@ public class UserServiceImpl implements UserService {
             return userDao.create(userToCreate);
         }
     }
+
+    @Override
+    public boolean checkRegistered(String username, String password) {
+        AtomicBoolean matches = new AtomicBoolean(false);
+        getUser(username).ifPresent(user -> {
+            matches.set(password.equals(user.getPassword()));
+        });
+        return matches.get();
+    }
+
+    @Override
+    public Optional<User> getUser(String email) {
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            return userDao.findByUsername(email);
+        }
+    }
+
     private boolean emailExists(String email, UserDao userDao) {
         return userDao.findByUsername(email).isPresent();
     }
