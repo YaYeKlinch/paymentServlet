@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
@@ -7,7 +7,7 @@
     <title>Title</title>
 </head>
 <body>
-<form method="POST" action="<c:url value="/login"/>">
+<form method="POST" >
 
     <c:if test="${!empty requestScope.requestedUrl}">
         <input type="hidden" name="requestedUrl" value="${requestScope.requestedUrl}">

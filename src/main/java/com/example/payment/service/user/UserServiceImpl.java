@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UserServiceImpl implements UserService {
 
-    private DaoFactory daoFactory = DaoFactory.getInstance();
+    private final DaoFactory daoFactory = DaoFactory.getInstance();
 
 
     @Override
