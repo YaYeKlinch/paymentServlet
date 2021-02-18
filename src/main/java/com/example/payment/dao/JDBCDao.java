@@ -193,7 +193,7 @@ public abstract class JDBCDao<E> implements GenericDao<E> {
         }
     }
 
-    List<E> getAllFromStatement(PreparedStatement statement) throws SQLException {
+    protected List<E> getAllFromStatement(PreparedStatement statement) throws SQLException {
         List<E> entities = new ArrayList<>();
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
