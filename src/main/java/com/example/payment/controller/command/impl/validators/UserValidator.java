@@ -1,13 +1,10 @@
-package com.example.payment.controller.uttills;
+package com.example.payment.controller.command.impl.validators;
 
 import com.example.payment.entity.dto.UserDto;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import static java.util.Objects.isNull;

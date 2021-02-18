@@ -11,10 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class AccountDaoImpl  extends JDBCDao<Account> implements AccountDao {
     private final String FIND_ACCOUNTS_BY_USER_ID = "SELECT * FROM account " +
             "WHERE user.id=?";
+    private final String FIND_ACCOUNT_BY_NUMBER = "SELECT * FROM account WHERE account.number = ?";
 
     public AccountDaoImpl(Connection connection) {
         super(connection,
@@ -59,5 +61,20 @@ public class AccountDaoImpl  extends JDBCDao<Account> implements AccountDao {
             ex.printStackTrace();
         }
         return accounts;
+    }
+
+    @Override
+    public Optional<Account> findByNumber(String number) {
+        Account account = null;
+        try (PreparedStatement statement = connection.prepareStatement(FIND_ACCOUNT_BY_NUMBER)) {
+            statement.setString(1, number);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                account = extractEntity(result);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Optional.ofNullable(account);
     }
 }

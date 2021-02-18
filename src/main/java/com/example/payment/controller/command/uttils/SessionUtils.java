@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class SessionUtils {
-    public static long getUserId(HttpServletRequest request){
+    public static User getUserId(HttpServletRequest request){
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("LoggedUser");
-        return user.getId();
+        return user;
     }
 }

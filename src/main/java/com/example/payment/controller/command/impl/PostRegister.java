@@ -1,7 +1,7 @@
 package com.example.payment.controller.command.impl;
 
 import com.example.payment.controller.command.Command;
-import com.example.payment.controller.uttills.UserValidator;
+import com.example.payment.controller.command.impl.validators.UserValidator;
 import com.example.payment.entity.dto.UserDto;
 import com.example.payment.exception.EmailExistsException;
 import com.example.payment.service.user.UserService;
@@ -9,7 +9,6 @@ import com.example.payment.service.user.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.nio.file.attribute.UserDefinedFileAttributeView;
 
 public class PostRegister implements Command {
 

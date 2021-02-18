@@ -3,6 +3,7 @@ package com.example.payment.controller.command.impl;
 
 import com.example.payment.controller.command.Command;
 import com.example.payment.entity.Account;
+import com.example.payment.entity.User;
 import com.example.payment.service.account.AccountService;
 import com.example.payment.service.account.AccountServiceImpl;
 
@@ -19,8 +20,8 @@ public class GetAccountsPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        long userId = getUserId(request);
-        List<Account> accounts = accountService.findAllAccountsByUser(userId);
+        User user = getUserId(request);
+        List<Account> accounts = accountService.findAllAccountsByUser(user.getId());
         request.setAttribute("accounts" , accounts);
         return "accounts.jsp";
     }
