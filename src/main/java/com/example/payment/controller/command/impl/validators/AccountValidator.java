@@ -14,7 +14,7 @@ public class AccountValidator {
     public static void validateAccountDto(AccountDto accountDto , HttpServletRequest request, boolean allMatches){
         ResourceBundle regex = ResourceBundle.getBundle("regexp");
 
-        checkNotEmpty(accountDto.getName(),"nameEmpty",request , allMatches);
+        checkNotEmpty(accountDto.getName(),"accountNameEmpty",request , allMatches);
         checkNotEmpty(accountDto.getNumber(),"numberEmpty",request, allMatches);
 
         if(allMatches){
@@ -29,7 +29,7 @@ public class AccountValidator {
     }
     private static void checkNumberCorrect(String number,String regex, ServletRequest request , boolean allMatches){
         if (!number.matches(regex) || number.length()!=LENGTH_OF_NUMBER) {
-            request.setAttribute("number is wrong",true);
+            request.setAttribute("numberWrong",true);
             allMatches = false;
         }
     }

@@ -7,6 +7,7 @@
     <title>Title</title>
 </head>
 <body>
+<a href="/accounts/add-account"><fmt:message key="addAccount.link"/></a>
 <table>
     <tr>
         <th >  <fmt:message key="account.name" /></th>

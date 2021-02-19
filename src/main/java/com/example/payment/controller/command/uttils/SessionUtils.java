@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 public class SessionUtils {
     public static User getUserId(HttpServletRequest request){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         User user = (User)session.getAttribute("LoggedUser");
         return user;
     }
