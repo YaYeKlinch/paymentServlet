@@ -14,7 +14,7 @@ public class AccountMapper implements Mapper<Account> {
     public Account extractFromResultSet(ResultSet rs) throws SQLException {
         UserMapper userMapper = new UserMapper();
         Account account = new Account();
-        account.setId(rs.getLong("account.uid"));
+        account.setId(rs.getLong("account.id"));
         account.setName(rs.getString("account.name"));
         account.setNumber(rs.getString("account.number"));
         account.setCosts(rs.getInt("account.costs"));

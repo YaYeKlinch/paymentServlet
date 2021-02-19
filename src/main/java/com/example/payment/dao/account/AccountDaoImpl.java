@@ -15,18 +15,18 @@ import java.util.Optional;
 
 public class AccountDaoImpl  extends JDBCDao<Account> implements AccountDao {
     private final String FIND_ACCOUNTS_BY_USER_ID = "SELECT * FROM account " +
-            "WHERE user.id=?";
+            "WHERE account.uid=?";
     private final String FIND_ACCOUNT_BY_NUMBER = "SELECT * FROM account WHERE account.number = ?";
 
     public AccountDaoImpl(Connection connection) {
         super(connection,
-                "INSERT INTO account(name, number, costs, blocked, user_id) VALUES(?,?,?,?,?)",
+                "INSERT INTO account(name, number, costs, blocked, uid) VALUES(?,?,?,?,?)",
                 "SELECT * FROM account WHERE id = ?",
                 "SELECT SQL_CALC_FOUND_ROWS * FROM account LIMIT ?,?",
                 "SELECT * FROM account",
                 "SELECT COUNT(*)FROM account",
                 "COUNT(*)",
-                "UPDATE account SET name = ?, number = ?, costs = ?, blocked = ?, user_id = ? WHERE id = ?",
+                "UPDATE account SET name = ?, number = ?, costs = ?, blocked = ?, uid = ? WHERE id = ?",
                 8,
                 "DELETE FROM account WHERE id = ?",
                 new AccountMapper());
