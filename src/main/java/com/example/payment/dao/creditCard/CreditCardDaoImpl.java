@@ -4,6 +4,7 @@ import com.example.payment.dao.JDBCDao;
 import com.example.payment.dao.Mapper;
 import com.example.payment.dao.user.UserDao;
 import com.example.payment.dao.user.UserMapper;
+import com.example.payment.entity.Account;
 import com.example.payment.entity.CreditCard;
 import com.example.payment.entity.User;
 
@@ -11,10 +12,12 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 public class CreditCardDaoImpl extends JDBCDao<CreditCard> implements CreditCardDao {
 
-
+    private static final String FIND_CARDS_BY_ACCOUNT = "SELECT * FROM credit_card " +
+            "WHERE credit_card.account_id IN (SELECT account.id FROM account WHERE account.id = ?)";
 
     public CreditCardDaoImpl(Connection connection) {
         super(connection,
@@ -51,4 +54,15 @@ public class CreditCardDaoImpl extends JDBCDao<CreditCard> implements CreditCard
     }
 
 
+    @Override
+    public List<CreditCard> findAllByAccount(Long accountId) {
+        List<CreditCard> cards = null;
+        try (PreparedStatement statement = connection.prepareStatement(FIND_CARDS_BY_ACCOUNT)) {
+            statement.setLong(1, accountId);
+            cards = getAllFromStatement(statement);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return cards;
+    }
 }

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class UserDaoImpl  extends JDBCDao<User> implements UserDao {
-    private final String FIND_USER_BY_USERNAME = "SELECT * FROM user WHERE username = ?";
+    private static final String FIND_USER_BY_USERNAME = "SELECT * FROM user WHERE username = ?";
 
 
     public UserDaoImpl(Connection connection) {

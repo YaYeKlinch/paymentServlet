@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class AccountDaoImpl  extends JDBCDao<Account> implements AccountDao {
-    private final String FIND_ACCOUNTS_BY_USER_ID = "SELECT * FROM account " +
+    private static final String FIND_ACCOUNTS_BY_USER_ID = "SELECT * FROM account " +
             "WHERE account.uid=?";
-    private final String FIND_ACCOUNT_BY_NUMBER = "SELECT * FROM account WHERE account.number = ? AND account.uid=?";
+    private static final String FIND_ACCOUNT_BY_NUMBER = "SELECT * FROM account WHERE account.number = ? AND account.uid=?";
 
     public AccountDaoImpl(Connection connection) {
         super(connection,
