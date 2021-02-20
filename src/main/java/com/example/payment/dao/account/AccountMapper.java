@@ -19,7 +19,7 @@ public class AccountMapper implements Mapper<Account> {
         account.setNumber(rs.getString("account.number"));
         account.setCosts(rs.getInt("account.costs"));
         account.setBlocked(rs.getBoolean("account.blocked"));
-        account.setUser(userMapper.extractFromResultSet(rs));
+        account.setUser(rs.getLong("account.uid"));
         return account;
     }
 }

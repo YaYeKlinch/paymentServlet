@@ -1,6 +1,7 @@
 package com.example.payment.controller.servlet;
 
 import com.example.payment.controller.command.Command;
+import com.example.payment.controller.command.PostCommand;
 import com.example.payment.controller.command.impl.*;
 
 import javax.servlet.http.HttpServlet;
@@ -9,7 +10,7 @@ import java.util.Map;
 
 public class AbstractServlet extends HttpServlet {
     protected Map<String, Command> urlToGetCommand = new HashMap<>();
-    protected Map<String, Command> urlToPostCommand=  new HashMap<>();
+    protected Map<String, PostCommand> urlToPostCommand=  new HashMap<>();
 
     @Override
     public void init() {

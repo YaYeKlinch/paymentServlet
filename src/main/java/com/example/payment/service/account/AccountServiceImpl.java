@@ -28,7 +28,7 @@ public class AccountServiceImpl implements AccountService{
                 throw new EmailExistsException("There is an account with that number address:" + accountDto.getNumber());
             }
             Account accountToCreate = new Account();
-            accountToCreate.setUser(user);
+            accountToCreate.setUser(user.getId());
             accountToCreate.setBlocked(false);
             accountToCreate.setCosts(START_COSTS);
             accountToCreate.setNumber(accountDto.getNumber());

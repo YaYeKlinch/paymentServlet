@@ -1,6 +1,7 @@
 package com.example.payment.controller.command.impl;
 
 import com.example.payment.controller.command.Command;
+import com.example.payment.controller.command.PostCommand;
 import com.example.payment.controller.command.impl.validators.AccountValidator;
 import com.example.payment.controller.command.impl.validators.UserValidator;
 import com.example.payment.entity.User;
@@ -15,7 +16,7 @@ import java.io.IOException;
 
 import static com.example.payment.controller.command.uttils.SessionUtils.getUserId;
 
-public class PostAddingAccount implements Command {
+public class PostAddingAccount implements PostCommand {
     boolean allMatches;
     private final AccountService accountService = new AccountServiceImpl();
     private static final String URL_ERROR = "/addAccount.jsp";
@@ -65,5 +66,11 @@ public class PostAddingAccount implements Command {
             allMatches = false;
         }
         return accountDto;
+    }
+
+
+    @Override
+    public boolean isError(String url) {
+        return url.equals(URL_ERROR);
     }
 }

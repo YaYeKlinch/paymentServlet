@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface AccountDao extends GenericDao<Account> {
 
     List<Account> findAllByUser(long userId);
-    Optional<Account> findByNumber(String number);
+    Optional<Account> findByNumber(String number , long userId);
 }

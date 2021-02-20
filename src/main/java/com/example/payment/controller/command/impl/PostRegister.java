@@ -1,6 +1,7 @@
 package com.example.payment.controller.command.impl;
 
 import com.example.payment.controller.command.Command;
+import com.example.payment.controller.command.PostCommand;
 import com.example.payment.controller.command.impl.validators.UserValidator;
 import com.example.payment.entity.dto.UserDto;
 import com.example.payment.exception.EmailExistsException;
@@ -10,7 +11,7 @@ import com.example.payment.service.user.UserServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-public class PostRegister implements Command {
+public class PostRegister implements PostCommand {
 
     private final UserService userService = new UserServiceImpl();
     private boolean allMatches;
@@ -63,5 +64,10 @@ public class PostRegister implements Command {
             allMatches = false;
         }
         return user;
+    }
+
+    @Override
+    public  boolean isError(String url){
+        return url.equals(URL_ERROR);
     }
 }

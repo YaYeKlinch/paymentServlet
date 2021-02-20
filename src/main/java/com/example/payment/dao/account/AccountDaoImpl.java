@@ -16,7 +16,7 @@ import java.util.Optional;
 public class AccountDaoImpl  extends JDBCDao<Account> implements AccountDao {
     private final String FIND_ACCOUNTS_BY_USER_ID = "SELECT * FROM account " +
             "WHERE account.uid=?";
-    private final String FIND_ACCOUNT_BY_NUMBER = "SELECT * FROM account WHERE account.number = ?";
+    private final String FIND_ACCOUNT_BY_NUMBER = "SELECT * FROM account WHERE account.number = ? AND account.uid=?";
 
     public AccountDaoImpl(Connection connection) {
         super(connection,
@@ -48,7 +48,7 @@ public class AccountDaoImpl  extends JDBCDao<Account> implements AccountDao {
         statement.setString(2, entity.getNumber());
         statement.setInt(3, entity.getCosts());
         statement.setBoolean(4, entity.isBlocked());
-        statement.setLong(5, entity.getUser().getId());
+        statement.setLong(5, entity.getUser());
     }
 
     @Override
@@ -64,10 +64,11 @@ public class AccountDaoImpl  extends JDBCDao<Account> implements AccountDao {
     }
 
     @Override
-    public Optional<Account> findByNumber(String number) {
+    public Optional<Account> findByNumber(String number , long userId) {
         Account account = null;
         try (PreparedStatement statement = connection.prepareStatement(FIND_ACCOUNT_BY_NUMBER)) {
             statement.setString(1, number);
+            statement.setLong(1, userId);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
                 account = extractEntity(result);

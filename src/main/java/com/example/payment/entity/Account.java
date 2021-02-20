@@ -6,7 +6,7 @@ public class Account {
     private String number;
     private int costs;
     private boolean blocked;
-    private User user;
+    private long user_id;
 
     public Account(){
 
@@ -21,13 +21,13 @@ public class Account {
         this.costs = costs;
         this.blocked = blocked;
     }
-    public Account(long id, String name, String number, int costs, boolean blocked, User user) {
+    public Account(long id, String name, String number, int costs, boolean blocked, long user_id) {
         this.id = id;
         this.name = name;
         this.number = number;
         this.costs = costs;
         this.blocked = blocked;
-        this.user = user;
+        this.user_id = user_id;
     }
 
     public long getId() {
@@ -70,11 +70,11 @@ public class Account {
         this.blocked = blocked;
     }
 
-    public User getUser() {
-        return user;
+    public long getUser() {
+        return user_id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(long user) {
+        this.user_id = user;
     }
 }

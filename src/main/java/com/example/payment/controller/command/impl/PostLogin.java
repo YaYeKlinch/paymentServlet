@@ -1,13 +1,14 @@
 package com.example.payment.controller.command.impl;
 
 import com.example.payment.controller.command.Command;
+import com.example.payment.controller.command.PostCommand;
 import com.example.payment.entity.User;
 import com.example.payment.service.user.UserService;
 import com.example.payment.service.user.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class PostLogin implements Command {
+public class PostLogin implements PostCommand {
 
     private final UserService userService = new UserServiceImpl();
     private static final String URL_ERROR = "/login.jsp";
@@ -31,5 +32,9 @@ public class PostLogin implements Command {
             url = "/";
         }
         return url;
+    }
+    @Override
+    public  boolean isError(String url){
+        return url.equals(URL_ERROR);
     }
 }

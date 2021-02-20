@@ -1,6 +1,7 @@
 package com.example.payment.controller.servlet;
 
 import com.example.payment.controller.command.Command;
+import com.example.payment.controller.command.PostCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,8 +27,14 @@ public class MainServlet extends AbstractServlet{
     }
 
     private void processRestRequest(HttpServletRequest request, HttpServletResponse response, String path) throws ServletException, IOException {
-        Command command = urlToPostCommand.get(path);
-        request.getRequestDispatcher(command.execute(request)).forward(request,response);
+        PostCommand command = urlToPostCommand.get(path);
+        String url = command.execute(request);
+       if( command.isError(url)){
+           request.getRequestDispatcher(url).forward(request,response);
+       }
+        else {
+            response.sendRedirect(url);
+       }
     }
 
     private void processPageRequest(HttpServletRequest request, HttpServletResponse response, String path) throws ServletException, IOException {
