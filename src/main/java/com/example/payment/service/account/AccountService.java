@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface AccountService {
     List<Account> findAllAccountsByUser(Long userId);
-    boolean isAccountExists(String number , User user);
     boolean createAccount(AccountDto accountDto , User user);
 }

@@ -1,13 +1,10 @@
 package com.example.payment.controller.command.impl;
 
-import com.example.payment.controller.command.Command;
 import com.example.payment.controller.command.PostCommand;
 import com.example.payment.controller.command.impl.validators.AccountValidator;
-import com.example.payment.controller.command.impl.validators.UserValidator;
 import com.example.payment.entity.User;
 import com.example.payment.entity.dto.AccountDto;
-import com.example.payment.entity.dto.UserDto;
-import com.example.payment.exception.EmailExistsException;
+import com.example.payment.exception.AccountExistException;
 import com.example.payment.service.account.AccountService;
 import com.example.payment.service.account.AccountServiceImpl;
 
@@ -39,7 +36,7 @@ public class PostAddingAccount implements PostCommand {
         if(allMatches){
             try{
                 registered = tryCreateOrAddCreationErrorAttr(accountDto,request ,user);
-            }catch (EmailExistsException ex){
+            }catch (AccountExistException ex){
                 request.setAttribute("accountExists",true);
             }
         }
