@@ -12,7 +12,7 @@ public class PostLogin implements PostCommand {
 
     private final UserService userService = new UserServiceImpl();
     private static final String URL_ERROR = "/login.jsp";
-    private static final String URL_SUCCESS = "/accounts.jsp";
+    private static final String URL_SUCCESS = "/accounts";
     @Override
     public String execute(HttpServletRequest request) {
         String email = request.getParameter("email");

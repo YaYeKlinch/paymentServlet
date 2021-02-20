@@ -20,7 +20,7 @@ public class PostAddingAccount implements PostCommand {
     boolean allMatches;
     private final AccountService accountService = new AccountServiceImpl();
     private static final String URL_ERROR = "/addAccount.jsp";
-    private static final String URL_SUCCESS = "/accounts.jsp";
+    private static final String URL_SUCCESS = "/accounts";
     @Override
     public String execute(HttpServletRequest request) {
         allMatches = true;
