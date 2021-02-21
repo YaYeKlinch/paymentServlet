@@ -5,20 +5,21 @@ import com.example.payment.dao.Mapper;
 import com.example.payment.dao.user.UserDao;
 import com.example.payment.dao.user.UserMapper;
 import com.example.payment.entity.Account;
+import com.example.payment.entity.CardType;
 import com.example.payment.entity.CreditCard;
 import com.example.payment.entity.User;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
+import java.util.Optional;
 
 public class CreditCardDaoImpl extends JDBCDao<CreditCard> implements CreditCardDao {
 
     private static final String FIND_CARDS_BY_ACCOUNT = "SELECT * FROM credit_card " +
             "WHERE credit_card.account_id IN (SELECT account.id FROM account WHERE account.id = ?)";
-
+    private static final String FIND_CARD_BY_TYPE = "SELECT * FROM credit_card WHERE card_type = ? " +
+            "AND credit_card.account_id IN (SELECT account.id FROM account WHERE account.id = ?)";
+    private static final String FIND_MAX_NUMBER = "SELECT MAX(credit_card.number) AS maxNumber FROM credit_card";
     public CreditCardDaoImpl(Connection connection) {
         super(connection,
                 "INSERT INTO credit_card(number, cvv, end_date, pin, account_id,card_type) VALUES(?,?,?,?,?,?)",
@@ -64,5 +65,35 @@ public class CreditCardDaoImpl extends JDBCDao<CreditCard> implements CreditCard
             ex.printStackTrace();
         }
         return cards;
+    }
+
+    @Override
+    public Optional<CreditCard> findByTypeCard(CardType cardType, Long accountId) {
+        CreditCard card = null;
+        try (PreparedStatement statement = connection.prepareStatement(FIND_CARD_BY_TYPE)) {
+            statement.setString(1, cardType.name());
+            statement.setLong(1, accountId);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                card = extractEntity(result);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Optional.ofNullable(card);
+    }
+
+    @Override
+    public Optional<Long> findMaxNumber() {
+        Long number = null;
+        try (PreparedStatement statement = connection.prepareStatement(FIND_MAX_NUMBER)) {
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                number = result.getLong("maxNumber");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Optional.ofNullable(number);
     }
 }

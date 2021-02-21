@@ -7,19 +7,17 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/accounts/add-account"><fmt:message key="addAccount.link"/></a>
 <table>
     <tr>
-        <th >  <fmt:message key="account.name" /></th>
         <th >  <fmt:message key="account.number" /></th>
-        <th>  <fmt:message key="account.costs" /></th>
+        <th >  <fmt:message key="card.endDate" /></th>
+        <th>  <fmt:message key="card.type" /></th>
     </tr>
-    <c:forEach items="${accounts}" var="d" >
+    <c:forEach items="${cards}" var="d" >
         <tr>
-            <td>${d.name}</td>
             <td>${d.number}</td>
-            <td>${d.costs}</td>
-            <td><a href="/accounts/cards?account_id=${d.id}"><fmt:message key="addAccount.link"/></a> </td>
+            <td>${d.endDate}</td>
+            <td>${d.cardType}</td>
         </tr>
     </c:forEach>
 </table>
