@@ -22,10 +22,10 @@ public class CreditCardServiceImpl implements CreditCardService{
     }
 
     @Override
-    public boolean createAccount(Account account, CardDto cardDto) {
+    public boolean createCard(Account account, CardDto cardDto) {
         try (CreditCardDao cardDao = daoFactory.createCreditCardDao()){
             if (isCardWithTypeExist(cardDto.getCardType(),cardDao , account.getId())) {
-                throw new AccountExistException("There is an account with that number address:" + cardDto.getCardType());
+                throw new AccountExistException("There is an card with that type:" + cardDto.getCardType());
             }
             CreditCard cardToCreate = new CreditCard();
             cardToCreate.setAccount(account);

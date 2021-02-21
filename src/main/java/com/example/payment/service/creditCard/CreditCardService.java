@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface CreditCardService {
     List<CreditCard> findAllCardsByAccount(Long accountId);
-    boolean createAccount(Account account, CardDto cardDto);
+    boolean createCard(Account account, CardDto cardDto);
 }

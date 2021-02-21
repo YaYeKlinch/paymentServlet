@@ -38,6 +38,13 @@ public class AccountServiceImpl implements AccountService{
         }
     }
 
+    @Override
+    public Account findAccountById(Long id) {
+        try (AccountDao accountDao = daoFactory.createAccountDao()){
+            return accountDao.findById(id).orElseThrow(NullPointerException::new);
+        }
+    }
+
     private boolean isAccountExists(String number , User user , AccountDao accountDao) {
         return accountDao.findByNumber(number, user.getId()).isPresent();
     }

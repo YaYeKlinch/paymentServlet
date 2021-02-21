@@ -7,6 +7,7 @@
     <title>Title</title>
 </head>
 <body>
+<a href="/accounts/cards/add-card?account_id=${account_id}"><fmt:message key="card.list"/></a>
 <table>
     <tr>
         <th >  <fmt:message key="account.number" /></th>

@@ -15,10 +15,13 @@ public class CardGenerator {
             int x = (int) (Math.random()*10);
             sb.append(x);
         }
-        return Integer.getInteger(sb.toString()) ;
+        return Integer.parseInt(sb.toString()) ;
     }
     public static Long generateRandomNumber(CreditCardDao cardDao){
         Optional<Long> maxNumberCard = cardDao.findMaxNumber();
-        return maxNumberCard.map(number -> number + 1L).orElse(START_CARD);
+        if(maxNumberCard.get().equals(Long.valueOf(0))){
+            return START_CARD;
+        }
+        return maxNumberCard.get()+ 1L;
     }
 }

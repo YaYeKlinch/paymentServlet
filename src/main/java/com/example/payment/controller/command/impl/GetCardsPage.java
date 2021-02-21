@@ -1,7 +1,6 @@
 package com.example.payment.controller.command.impl;
 
 import com.example.payment.controller.command.Command;
-import com.example.payment.controller.command.uttils.PathUtils;
 import com.example.payment.entity.CreditCard;
 import com.example.payment.service.creditCard.CreditCardService;
 import com.example.payment.service.creditCard.CreditCardServiceImpl;
@@ -16,6 +15,7 @@ public class GetCardsPage implements Command {
         long accountId = Long.parseLong(request.getParameter("account_id"));
         List<CreditCard> cards  =  creditCardService.findAllCardsByAccount(accountId);
         request.setAttribute("cards" , cards);
+        request.setAttribute("account_id" , accountId);
         return "/cards.jsp";
     }
 }

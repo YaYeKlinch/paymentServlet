@@ -15,10 +15,12 @@ import java.util.Optional;
 
 public class CreditCardDaoImpl extends JDBCDao<CreditCard> implements CreditCardDao {
 
-    private static final String FIND_CARDS_BY_ACCOUNT = "SELECT * FROM credit_card " +
-            "WHERE credit_card.account_id IN (SELECT account.id FROM account WHERE account.id = ?)";
-    private static final String FIND_CARD_BY_TYPE = "SELECT * FROM credit_card WHERE card_type = ? " +
-            "AND credit_card.account_id IN (SELECT account.id FROM account WHERE account.id = ?)";
+    private static final String FIND_CARDS_BY_ACCOUNT = "SELECT * " +
+            "FROM credit_card LEFT JOIN account ON credit_card.account_id = account.id" +
+            " WHERE credit_card.account_id =?";
+    private static final String FIND_CARD_BY_TYPE = "SELECT * " +
+            "FROM credit_card LEFT JOIN account ON credit_card.account_id = account.id" +
+            " WHERE card_type = ? AND credit_card.account_id = ?";
     private static final String FIND_MAX_NUMBER = "SELECT MAX(credit_card.number) AS maxNumber FROM credit_card";
     public CreditCardDaoImpl(Connection connection) {
         super(connection,
@@ -72,7 +74,7 @@ public class CreditCardDaoImpl extends JDBCDao<CreditCard> implements CreditCard
         CreditCard card = null;
         try (PreparedStatement statement = connection.prepareStatement(FIND_CARD_BY_TYPE)) {
             statement.setString(1, cardType.name());
-            statement.setLong(1, accountId);
+            statement.setLong(2, accountId);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
                 card = extractEntity(result);

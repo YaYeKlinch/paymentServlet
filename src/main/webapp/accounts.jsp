@@ -19,7 +19,7 @@
             <td>${d.name}</td>
             <td>${d.number}</td>
             <td>${d.costs}</td>
-            <td><a href="/accounts/cards?account_id=${d.id}"><fmt:message key="addAccount.link"/></a> </td>
+            <td><a href="/accounts/cards?account_id=${d.id}"><fmt:message key="card.list"/></a> </td>
         </tr>
     </c:forEach>
 </table>

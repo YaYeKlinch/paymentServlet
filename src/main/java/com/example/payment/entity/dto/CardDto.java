@@ -3,9 +3,9 @@ package com.example.payment.entity.dto;
 import com.example.payment.entity.CardType;
 
 public class CardDto {
-    CardType cardType;
-    int pin;
-    int confirmPin;
+   private CardType cardType;
+   private int pin;
+   private int confirmPin;
 
     public CardDto(){
 

@@ -20,9 +20,7 @@ public class CardMapper  implements Mapper<CreditCard> {
         creditCard.setNumber(rs.getLong("credit_card.number"));
         creditCard.setCvv(rs.getInt("credit_card.cvv"));
         creditCard.setPin(rs.getInt("credit_card.pin"));
-        creditCard.setEndDate(rs.getDate("credit_card.end_date").toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate());
+        creditCard.setEndDate(rs.getDate("credit_card.end_date").toLocalDate());
         creditCard.setCardType(CardType.valueOf(rs.getString("credit_card.card_type")));
         creditCard.setAccount(accountMapper.extractFromResultSet(rs));
         return creditCard;
