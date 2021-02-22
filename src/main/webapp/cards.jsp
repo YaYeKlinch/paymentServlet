@@ -9,7 +9,8 @@
     <title>Title</title>
 </head>
 <body>
-
+<div class="container">
+    <%@include file="fragments/navbar.jsp"%>
 <a href="/accounts/cards/add-card?account_id=${account_id}"><fmt:message key="card.list"/></a>
 <table>
     <tr>
@@ -25,5 +26,6 @@
         </tr>
     </c:forEach>
 </table>
+</div>
 </body>
 </html>

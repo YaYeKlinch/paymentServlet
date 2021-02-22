@@ -9,6 +9,8 @@
     <title>Title</title>
 </head>
 <body>
+<div class="container">
+    <%@include file="fragments/navbar.jsp"%>
 <form method="POST">
     <h2><fmt:message key="addCard.label"/></h2>
     <c:if test="${!empty requestScope.creationError}">
@@ -53,5 +55,6 @@
         <button type="submit" class="btn btn-primary btn-block btn-lg"><fmt:message key="submit.button"/></button>
     </div>
 </form>
+</div>
 </body>
 </html>

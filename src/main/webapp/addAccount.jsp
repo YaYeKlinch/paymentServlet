@@ -11,6 +11,8 @@
     <title>Title</title>
 </head>
 <body>
+<div class="container">
+    <%@include file="fragments/navbar.jsp"%>
 <form method="POST">
     <h2><fmt:message key="addAccount.label"/></h2>
     <c:if test="${!empty requestScope.creationError}">
@@ -46,5 +48,6 @@
     </div>
     <a href="/accounts"><fmt:message key="back.link"/></a>
 </form>
+</div>
 </body>
 </html>

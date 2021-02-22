@@ -9,6 +9,8 @@
     <title>Title</title>
 </head>
 <body>
+<div class="container">
+    <%@include file="fragments/navbar.jsp"%>
 <a href="/accounts/add-account"><fmt:message key="addAccount.link"/></a>
 <table>
     <tr>
@@ -26,5 +28,6 @@
         </tr>
     </c:forEach>
 </table>
+</div>
 </body>
 </html>
