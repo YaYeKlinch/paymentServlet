@@ -20,10 +20,12 @@ public class AbstractServlet extends HttpServlet {
         urlToGetCommand.put("/accounts/add-account" , new GetAddingAccount());
         urlToGetCommand.put("/accounts/cards" , new GetCardsPage());
         urlToGetCommand.put("/accounts/cards/add-card" , new GetAddingCard());
+        urlToGetCommand.put("/accounts/increase-costs" , new GetIncreasingCosts());
 
         urlToPostCommand.put("/registration" , new PostRegister());
         urlToPostCommand.put("/login-page" , new PostLogin());
         urlToPostCommand.put("/accounts/add-account" , new PostAddingAccount());
         urlToPostCommand.put("/accounts/cards/add-card" , new PostAddingCard());
+        urlToPostCommand.put("/accounts/increase-costs" , new PostIncreasingCosts());
     }
 }

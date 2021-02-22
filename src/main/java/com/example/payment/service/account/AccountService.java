@@ -10,4 +10,5 @@ public interface AccountService {
     List<Account> findAllAccountsByUser(Long userId);
     boolean createAccount(AccountDto accountDto , User user);
     Account findAccountById(Long id);
+    boolean increaseCosts(Account account , int costs);
 }

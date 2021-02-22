@@ -11,6 +11,7 @@ import static java.util.Objects.isNull;
 
 public class AccountValidator {
     private static final int LENGTH_OF_NUMBER = 8;
+    private static final int MAX_COSTS = 100000;
     public static void validateAccountDto(AccountDto accountDto , HttpServletRequest request, boolean allMatches){
         ResourceBundle regex = ResourceBundle.getBundle("regexp");
 
@@ -20,6 +21,13 @@ public class AccountValidator {
         if(allMatches){
             checkNumberCorrect(accountDto.getNumber() , regex.getString("pattern.number"), request , allMatches);
         }
+    }
+    public static boolean validateCosts(Integer costs , HttpServletRequest request){
+        if(costs<=0 || costs>MAX_COSTS){
+            request.setAttribute("invalidCosts" , true);
+            return false;
+        }
+        return true;
     }
     private static void  checkNotEmpty(String param, String emptyAttribute, ServletRequest request , boolean allMatches){
         if(isNull(param) || param.isEmpty()){
@@ -33,4 +41,5 @@ public class AccountValidator {
             allMatches = false;
         }
     }
+
 }

@@ -45,6 +45,14 @@ public class AccountServiceImpl implements AccountService{
         }
     }
 
+    @Override
+    public boolean increaseCosts(Account account, int costs) {
+        try (AccountDao accountDao = daoFactory.createAccountDao()){
+            account.setCosts(account.getCosts()+costs);
+            return accountDao.update(account);
+        }
+    }
+
     private boolean isAccountExists(String number , User user , AccountDao accountDao) {
         return accountDao.findByNumber(number, user.getId()).isPresent();
     }

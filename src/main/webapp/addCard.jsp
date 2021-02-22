@@ -32,7 +32,7 @@
                 <fmt:message key="field.incorrect" />
             </div>
         </c:if>
-        <input type="text" class="form-control" name="pin"  value="${values.pin}"/>
+        <input type="number" class="form-control" name="pin"  value="${values.pin}"/>
     </div>
     <div class="form-group">
         <label><fmt:message key="card.confirmPin"/></label>
@@ -46,7 +46,7 @@
                 <fmt:message key="card.pinNotMatch" />
             </div>
         </c:if>
-        <input type="text" class="form-control" name="confirmPin"  value="${values.confirmPin}"/>
+        <input type="number" class="form-control" name="confirmPin"  value="${values.confirmPin}"/>
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary btn-block btn-lg"><fmt:message key="submit.button"/></button>
