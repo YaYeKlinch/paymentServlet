@@ -3,13 +3,15 @@ package com.example.payment.controller.command.impl;
 import com.example.payment.controller.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-public class GetLogin implements Command {
+public class GetLogout implements Command {
 
-    private static final String URL = "/login.jsp";
     @Override
     public String execute(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
         request.setAttribute("logout" , true);
-        return URL;
+        return "login.jsp";
     }
 }

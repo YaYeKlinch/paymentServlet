@@ -22,6 +22,7 @@ public class PostLogin implements PostCommand {
             userService.getUser(email).ifPresent(user -> {
                 request.getSession().setAttribute("LoggedUser",user);
             });
+            request.setAttribute("logout" , false);
             return URL_SUCCESS;
         }
         return URL_ERROR;

@@ -1,6 +1,7 @@
 package com.example.payment.controller.servlet;
 
 import com.example.payment.controller.command.Command;
+import com.example.payment.controller.command.impl.GetLogout;
 import com.example.payment.controller.command.PostCommand;
 import com.example.payment.controller.command.impl.*;
 
@@ -22,6 +23,7 @@ public class AbstractServlet extends HttpServlet {
         urlToGetCommand.put("/accounts/cards/add-card" , new GetAddingCard());
         urlToGetCommand.put("/accounts/increase-costs" , new GetIncreasingCosts());
         urlToGetCommand.put("/" , new GetHomePage());
+        urlToGetCommand.put("/logout" , new GetLogout());
 
         urlToPostCommand.put("/registration" , new PostRegister());
         urlToPostCommand.put("/login-page" , new PostLogin());
