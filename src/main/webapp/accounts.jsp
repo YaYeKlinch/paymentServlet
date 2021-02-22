@@ -4,6 +4,8 @@
 <html>
 <fmt:setBundle basename="messages"/>
 <head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
     <title>Title</title>
 </head>
 <body>

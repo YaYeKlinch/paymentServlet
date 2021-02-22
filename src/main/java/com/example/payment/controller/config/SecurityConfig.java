@@ -20,7 +20,7 @@ public class SecurityConfig {
 
         List<String> userPaths = new ArrayList<>(notSecuredPaths);
         userPaths.add("/");
-        userPaths.add("/index.jsp");
+        userPaths.add("/home.jsp");
         userPaths.add("/logout");
         accessPaths.put("USER",userPaths);
 

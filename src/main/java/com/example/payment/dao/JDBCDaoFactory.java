@@ -1,5 +1,7 @@
 package com.example.payment.dao;
 
+import com.example.payment.dao.Payment.PaymentDao;
+import com.example.payment.dao.Payment.PaymentDaoImpl;
 import com.example.payment.dao.account.AccountDao;
 import com.example.payment.dao.account.AccountDaoImpl;
 import com.example.payment.dao.creditCard.CreditCardDao;
@@ -14,6 +16,12 @@ import java.sql.SQLException;
 public class JDBCDaoFactory extends DaoFactory {
 
     private DataSource dataSource = ConnectionHolder.getDataSource();
+
+
+    @Override
+    public PaymentDao createPaymentDao() {
+        return new PaymentDaoImpl(getConnection());
+    }
 
     @Override
     public CreditCardDao createCreditCardDao() {

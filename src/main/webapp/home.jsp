@@ -9,21 +9,20 @@
     <title>Title</title>
 </head>
 <body>
-
-<a href="/accounts/cards/add-card?account_id=${account_id}"><fmt:message key="card.list"/></a>
+<div class="container">
+<%@include file="fragments/navbar.jsp"%>
 <table>
     <tr>
-        <th >  <fmt:message key="account.number" /></th>
-        <th >  <fmt:message key="card.endDate" /></th>
-        <th>  <fmt:message key="card.type" /></th>
+        <th >  <fmt:message key="property.payments" /></th>
+        <th >  <fmt:message key="purpose.payments" /></th>
     </tr>
-    <c:forEach items="${cards}" var="d" >
+    <c:forEach items="${payments}" var="d" >
         <tr>
-            <td>${d.number}</td>
-            <td>${d.endDate}</td>
-            <td>${d.cardType}</td>
+            <td>${d.property}</td>
+            <td>${d.purpose}</td>
         </tr>
     </c:forEach>
 </table>
+</div>
 </body>
 </html>

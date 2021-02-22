@@ -21,6 +21,7 @@ public class AbstractServlet extends HttpServlet {
         urlToGetCommand.put("/accounts/cards" , new GetCardsPage());
         urlToGetCommand.put("/accounts/cards/add-card" , new GetAddingCard());
         urlToGetCommand.put("/accounts/increase-costs" , new GetIncreasingCosts());
+        urlToGetCommand.put("/" , new GetHomePage());
 
         urlToPostCommand.put("/registration" , new PostRegister());
         urlToPostCommand.put("/login-page" , new PostLogin());
