@@ -2,12 +2,10 @@ package com.example.payment.service.account;
 
 import com.example.payment.dao.DaoFactory;
 import com.example.payment.dao.account.AccountDao;
-import com.example.payment.dao.user.UserDao;
 import com.example.payment.entity.Account;
 import com.example.payment.entity.User;
 import com.example.payment.entity.dto.AccountDto;
 import com.example.payment.exception.AccountExistException;
-import com.example.payment.exception.EmailExistsException;
 
 import java.util.List;
 
@@ -46,10 +44,18 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public boolean increaseCosts(Account account, int costs) {
+    public void increaseCosts(Account account, int costs) {
         try (AccountDao accountDao = daoFactory.createAccountDao()){
             account.setCosts(account.getCosts()+costs);
-            return accountDao.update(account);
+            accountDao.update(account);
+        }
+    }
+
+    @Override
+    public void spendMoney(Account account, int costs) {
+        try (AccountDao accountDao = daoFactory.createAccountDao()){
+            account.setCosts(account.getCosts()-costs);
+            accountDao.update(account);
         }
     }
 

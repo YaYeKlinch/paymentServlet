@@ -38,7 +38,15 @@ public class CreditCardServiceImpl implements CreditCardService{
         }
     }
 
+    @Override
+    public CreditCard findByNumber(long number) {
+        try (CreditCardDao cardDao = daoFactory.createCreditCardDao()){
+            return cardDao.findByNumber(number).orElseThrow(NullPointerException::new);
+        }
+    }
+
     private boolean isCardWithTypeExist(CardType cardType , CreditCardDao cardDao , Long accountId){
         return  cardDao.findByTypeCard(cardType,accountId).isPresent();
     }
+
 }

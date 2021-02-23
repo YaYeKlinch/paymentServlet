@@ -9,4 +9,5 @@ import java.util.List;
 public interface CreditCardService {
     List<CreditCard> findAllCardsByAccount(Long accountId);
     boolean createCard(Account account, CardDto cardDto);
+    CreditCard findByNumber(long number);
 }

@@ -16,7 +16,7 @@ public class PostRegister implements PostCommand {
     private final UserService userService = new UserServiceImpl();
     private boolean allMatches;
     private static final String URL_ERROR = "/register.jsp";
-    private static final String URL_SUCCESS = "/login";
+    private static final String URL_SUCCESS = "/login-page";
 
     @Override
     public String execute(HttpServletRequest request) {

@@ -13,5 +13,6 @@ public interface CreditCardDao extends GenericDao<CreditCard> {
     List<CreditCard> findAllByAccount(Long accountId);
 
     Optional<CreditCard> findByTypeCard(CardType cardType, Long accountId);
+    Optional<CreditCard> findByNumber(long number);
     Optional<Long> findMaxNumber();
 }

@@ -24,7 +24,7 @@
             <td>${d.number}</td>
             <td>${d.costs}</td>
             <td><a href="/accounts/cards?account_id=${d.id}"><fmt:message key="card.list"/></a> </td>
-            <td><a href="/accounts/increase-costs?account_id=${d.id}"><fmt:message key="card.list"/></a> </td>
+            <td><a href="/accounts/increase-costs?account_id=${d.id}"><fmt:message key="increaseCost.label"/></a> </td>
         </tr>
     </c:forEach>
 </table>

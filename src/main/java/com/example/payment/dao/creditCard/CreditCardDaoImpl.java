@@ -1,13 +1,8 @@
 package com.example.payment.dao.creditCard;
 
 import com.example.payment.dao.JDBCDao;
-import com.example.payment.dao.Mapper;
-import com.example.payment.dao.user.UserDao;
-import com.example.payment.dao.user.UserMapper;
-import com.example.payment.entity.Account;
 import com.example.payment.entity.CardType;
 import com.example.payment.entity.CreditCard;
-import com.example.payment.entity.User;
 
 import java.sql.*;
 import java.util.List;
@@ -22,6 +17,7 @@ public class CreditCardDaoImpl extends JDBCDao<CreditCard> implements CreditCard
             "FROM credit_card LEFT JOIN account ON credit_card.account_id = account.id" +
             " WHERE card_type = ? AND credit_card.account_id = ?";
     private static final String FIND_MAX_NUMBER = "SELECT MAX(credit_card.number) AS maxNumber FROM credit_card";
+    private static final String FIND_BY_NUMBER = "SELECT * FROM credit_card WHERE number = ?";
     public CreditCardDaoImpl(Connection connection) {
         super(connection,
                 "INSERT INTO credit_card(number, cvv, end_date, pin, account_id,card_type) VALUES(?,?,?,?,?,?)",
@@ -75,6 +71,21 @@ public class CreditCardDaoImpl extends JDBCDao<CreditCard> implements CreditCard
         try (PreparedStatement statement = connection.prepareStatement(FIND_CARD_BY_TYPE)) {
             statement.setString(1, cardType.name());
             statement.setLong(2, accountId);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                card = extractEntity(result);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Optional.ofNullable(card);
+    }
+
+    @Override
+    public Optional<CreditCard> findByNumber(long number) {
+        CreditCard card = null;
+        try (PreparedStatement statement = connection.prepareStatement(FIND_BY_NUMBER)) {
+            statement.setLong(1, number);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
                 card = extractEntity(result);
