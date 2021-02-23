@@ -8,6 +8,8 @@ import com.example.payment.dao.creditCard.CreditCardDao;
 import com.example.payment.dao.creditCard.CreditCardDaoImpl;
 import com.example.payment.dao.user.UserDao;
 import com.example.payment.dao.user.UserDaoImpl;
+import com.example.payment.dao.userPayment.UserPaymentDao;
+import com.example.payment.dao.userPayment.UserPaymentDaoImpl;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -17,6 +19,11 @@ public class JDBCDaoFactory extends DaoFactory {
 
     private DataSource dataSource = ConnectionHolder.getDataSource();
 
+
+    @Override
+    public UserPaymentDao createUserPaymentDao() {
+        return new UserPaymentDaoImpl(getConnection());
+    }
 
     @Override
     public PaymentDao createPaymentDao() {
