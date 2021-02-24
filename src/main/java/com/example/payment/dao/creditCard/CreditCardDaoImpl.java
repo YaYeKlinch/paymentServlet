@@ -27,7 +27,7 @@ public class CreditCardDaoImpl extends JDBCDao<CreditCard> implements CreditCard
                 "SELECT COUNT(*)FROM credit_card",
                 "COUNT(*)",
                 "UPDATE credit_card SET number = ?, cvv = ?, end_date = ?, pin = ?, account_id = ?, card_type = ? WHERE id = ?",
-                8,
+                7,
                 "DELETE FROM credit_card WHERE id = ?",
                 new CardMapper());
     }

@@ -17,7 +17,7 @@ public class PaymentDaoImpl extends JDBCDao<Payment> implements PaymentDao{
                 "SELECT * FROM payment",
                 "SELECT COUNT(*)FROM payment", "COUNT(*)",
                 "UPDATE payment SET  property = ?, purpose = ? WHERE id = ?",
-                8,
+                3,
                 "DELETE FROM payment WHERE id = ?",
                 new PaymentMapper());
     }

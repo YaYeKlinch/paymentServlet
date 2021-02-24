@@ -19,7 +19,7 @@ public class UserPaymentDaoImpl  extends JDBCDao<UserPayment> implements UserPay
                 "SELECT COUNT(*)FROM user_makes_payment",
                 "COUNT(*)",
                 "UPDATE user_makes_payment SET costs = ?, time = ?,user_id = ? , payment_id = ?, card_id = ? WHERE id = ?",
-                8,
+                6,
                 "DELETE FROM user_makes_payment WHERE id = ?",
                 new UserPaymentMapper());
     }

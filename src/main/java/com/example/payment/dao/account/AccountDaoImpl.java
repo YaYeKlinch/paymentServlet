@@ -27,7 +27,7 @@ public class AccountDaoImpl  extends JDBCDao<Account> implements AccountDao {
                 "SELECT COUNT(*)FROM account",
                 "COUNT(*)",
                 "UPDATE account SET name = ?, number = ?, costs = ?, blocked = ?, uid = ? WHERE id = ?",
-                8,
+                6,
                 "DELETE FROM account WHERE id = ?",
                 new AccountMapper());
     }

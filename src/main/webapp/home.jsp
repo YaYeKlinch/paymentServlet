@@ -20,6 +20,9 @@
         <tr>
             <td>${d.property}</td>
             <td>${d.purpose}</td>
+            <c:if test="${sessionScope.LoggedUser!=null}">
+            <td><a href="/make-payment?payment_id=${d.id}"><fmt:message key="makePayment.label"/></a></td>
+            </c:if>
         </tr>
     </c:forEach>
 </table>
