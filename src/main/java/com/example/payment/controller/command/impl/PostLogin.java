@@ -17,7 +17,6 @@ public class PostLogin implements PostCommand {
     public String execute(HttpServletRequest request) {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-       // String requestedPage = getRequestedPage(request);
         if(userService.checkRegistered(email,password)){
             userService.getUser(email).ifPresent(user -> {
                 request.getSession().setAttribute("LoggedUser",user);
@@ -26,13 +25,6 @@ public class PostLogin implements PostCommand {
             return URL_SUCCESS;
         }
         return URL_ERROR;
-    }
-    private String getRequestedPage(HttpServletRequest request){
-        String url = request.getParameter("requestedUrl");
-        if(url == null || url.startsWith("/login")){
-            url = "/";
-        }
-        return url;
     }
     @Override
     public  boolean isError(String url){

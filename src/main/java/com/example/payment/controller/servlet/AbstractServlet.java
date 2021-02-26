@@ -30,6 +30,7 @@ public class AbstractServlet extends HttpServlet {
 
         urlToPostCommand.put("/registration" , new PostRegister());
         urlToPostCommand.put("/login-page" , new PostLogin());
+        urlToPostCommand.put("/logout" , new PostLogin());
         urlToPostCommand.put("/accounts/add-account" , new PostAddingAccount());
         urlToPostCommand.put("/accounts/cards/add-card" , new PostAddingCard());
         urlToPostCommand.put("/accounts/increase-costs" , new PostIncreasingCosts());
