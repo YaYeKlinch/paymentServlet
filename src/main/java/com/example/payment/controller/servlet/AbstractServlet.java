@@ -26,6 +26,7 @@ public class AbstractServlet extends HttpServlet {
         urlToGetCommand.put("/logout" , new GetLogout());
         urlToGetCommand.put("/user-payment" , new GetUserPaymentPage());
         urlToGetCommand.put("/make-payment" , new GetMakingPayment());
+        urlToGetCommand.put("/add-payment" , new GetAddingPayment());
 
         urlToPostCommand.put("/registration" , new PostRegister());
         urlToPostCommand.put("/login-page" , new PostLogin());
@@ -33,5 +34,6 @@ public class AbstractServlet extends HttpServlet {
         urlToPostCommand.put("/accounts/cards/add-card" , new PostAddingCard());
         urlToPostCommand.put("/accounts/increase-costs" , new PostIncreasingCosts());
         urlToPostCommand.put("/make-payment" , new PostMakingPayment());
+        urlToPostCommand.put("/add-payment" , new PostAddingPayment());
     }
 }

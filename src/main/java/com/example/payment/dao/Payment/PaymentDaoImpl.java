@@ -6,9 +6,12 @@ import com.example.payment.entity.Payment;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class PaymentDaoImpl extends JDBCDao<Payment> implements PaymentDao{
+    private static final String FIND_BY_PURPOSE = "SELECT * FROM payment WHERE property=?";
     public PaymentDaoImpl(Connection connection) {
         super(connection,
                 "INSERT INTO payment(property , purpose) VALUES(?,?)",
@@ -36,5 +39,20 @@ public class PaymentDaoImpl extends JDBCDao<Payment> implements PaymentDao{
     protected void setEntityValues(PreparedStatement statement, Payment entity) throws SQLException {
         statement.setLong(1, entity.getProperty());
         statement.setString(2,entity.getPurpose());
+    }
+
+    @Override
+    public Optional<Payment> findByProperty(long property) {
+        Payment payment = null;
+        try (PreparedStatement statement = connection.prepareStatement(FIND_BY_PURPOSE)) {
+            statement.setLong(1, property);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                payment = extractEntity(result);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Optional.ofNullable(payment);
     }
 }
