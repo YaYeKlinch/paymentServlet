@@ -11,24 +11,25 @@ import static java.util.Objects.isNull;
 
 public class PaymentValidator {
     private static final int LENGTH_OF_PROPERTY = 8;
-    public static void validatePayment(PaymentDto paymentDto, HttpServletRequest request, boolean allMatches){
+    public static boolean validatePayment(PaymentDto paymentDto, HttpServletRequest request){
         ResourceBundle regex = ResourceBundle.getBundle("regexp");
 
-        checkNotEmpty(paymentDto.getPurpose(),"purposeEmpty",request , allMatches);
-        if(allMatches){
-            checkNumberCorrect(paymentDto.getPurpose() , regex.getString("pattern.number"), request , allMatches);
-        }
+       boolean isPurposeEmpty  = checkNotEmpty(paymentDto.getPurpose(),"purposeEmpty",request );
+       boolean isNumberCorrect =   checkNumberCorrect(paymentDto.getPurpose() , regex.getString("pattern.number"), request);
+        return isNumberCorrect && isPurposeEmpty;
     }
-    private static void  checkNotEmpty(String param, String emptyAttribute, ServletRequest request , boolean allMatches){
+    private static boolean  checkNotEmpty(String param, String emptyAttribute, ServletRequest request){
         if(isNull(param) || param.isEmpty()){
             request.setAttribute(emptyAttribute,true);
-            allMatches = false;
+            return false;
         }
+        return true;
     }
-    private static void checkNumberCorrect(String number, String regex, ServletRequest request , boolean allMatches){
+    private static boolean checkNumberCorrect(String number, String regex, ServletRequest request ){
         if (!number.matches(regex) || number.length()!=LENGTH_OF_PROPERTY) {
             request.setAttribute("propertyWrong",true);
-            allMatches = false;
+            return false;
         }
+        return true;
     }
 }

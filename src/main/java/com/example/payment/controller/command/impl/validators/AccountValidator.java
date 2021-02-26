@@ -12,15 +12,12 @@ import static java.util.Objects.isNull;
 public class AccountValidator {
     private static final int LENGTH_OF_NUMBER = 8;
     private static final int MAX_COSTS = 100000;
-    public static void validateAccountDto(AccountDto accountDto , HttpServletRequest request, boolean allMatches){
+    public static boolean validateAccountDto(AccountDto accountDto , HttpServletRequest request){
         ResourceBundle regex = ResourceBundle.getBundle("regexp");
-
-        checkNotEmpty(accountDto.getName(),"accountNameEmpty",request , allMatches);
-        checkNotEmpty(accountDto.getNumber(),"numberEmpty",request, allMatches);
-
-        if(allMatches){
-            checkNumberCorrect(accountDto.getNumber() , regex.getString("pattern.number"), request , allMatches);
-        }
+        boolean isAccountEmpty = checkNotEmpty(accountDto.getName(),"accountNameEmpty",request);
+        boolean isNumberEmpty = checkNotEmpty(accountDto.getNumber(),"numberEmpty",request);
+        boolean isNumberCorrect =  checkNumberCorrect(accountDto.getNumber() , regex.getString("pattern.number"), request);
+        return isAccountEmpty && isNumberEmpty && isNumberCorrect;
     }
     public static boolean validateCosts(Integer costs , HttpServletRequest request){
         if(costs<=0 || costs>MAX_COSTS){
@@ -29,17 +26,19 @@ public class AccountValidator {
         }
         return true;
     }
-    private static void  checkNotEmpty(String param, String emptyAttribute, ServletRequest request , boolean allMatches){
+    private static boolean  checkNotEmpty(String param, String emptyAttribute, ServletRequest request){
         if(isNull(param) || param.isEmpty()){
             request.setAttribute(emptyAttribute,true);
-            allMatches = false;
+            return false;
         }
+        return true;
     }
-    private static void checkNumberCorrect(String number,String regex, ServletRequest request , boolean allMatches){
+    private static boolean checkNumberCorrect(String number,String regex, ServletRequest request){
         if (!number.matches(regex) || number.length()!=LENGTH_OF_NUMBER) {
             request.setAttribute("numberWrong",true);
-            allMatches = false;
+            return false;
         }
+        return true;
     }
 
 }

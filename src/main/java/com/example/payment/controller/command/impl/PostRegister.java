@@ -1,6 +1,5 @@
 package com.example.payment.controller.command.impl;
 
-import com.example.payment.controller.command.Command;
 import com.example.payment.controller.command.PostCommand;
 import com.example.payment.controller.command.impl.validators.UserValidator;
 import com.example.payment.entity.dto.UserDto;
@@ -22,32 +21,35 @@ public class PostRegister implements PostCommand {
     public String execute(HttpServletRequest request) {
         allMatches = true;
         UserDto user = getValidatedDto(request);
-        boolean registered = registerAndAddErrorAttributes(user,request);
-        if(registered){
-            request.setAttribute("values",user);
+        boolean registered = registerAndAddErrorAttributes(user, request);
+        if (registered) {
+            request.setAttribute("values", user);
             return URL_SUCCESS;
         }
         return URL_ERROR;
     }
-    private boolean registerAndAddErrorAttributes(UserDto user, HttpServletRequest request){
+
+    private boolean registerAndAddErrorAttributes(UserDto user, HttpServletRequest request) {
         boolean registered = false;
-        if(allMatches){
-            try{
-                registered = tryRegisterOrAddRegistrationErrorAttr(user,request);
-            }catch (EmailExistsException ex){
-                request.setAttribute("emailExists",true);
+        if (allMatches) {
+            try {
+                registered = tryRegisterOrAddRegistrationErrorAttr(user, request);
+            } catch (EmailExistsException ex) {
+                request.setAttribute("emailExists", true);
             }
         }
         return registered;
     }
-    private boolean tryRegisterOrAddRegistrationErrorAttr(UserDto user, HttpServletRequest request){
-        if(userService.registerUser(user)){
+
+    private boolean tryRegisterOrAddRegistrationErrorAttr(UserDto user, HttpServletRequest request) {
+        if (userService.registerUser(user)) {
             return true;
-        }else{
-            request.setAttribute("registrationError",true);
+        } else {
+            request.setAttribute("registrationError", true);
             return false;
         }
     }
+
     private UserDto getValidatedDto(HttpServletRequest request) {
         UserDto user = null;
         try {
@@ -58,16 +60,16 @@ public class PostRegister implements PostCommand {
                     request.getParameter("password"),
                     request.getParameter("confirmedPassword"));
 
-            UserValidator.validateUser(request, user , allMatches);
+            allMatches = UserValidator.validateUser(request, user);
 
-        } catch (IllegalArgumentException|IOException ex) {
+        } catch (IllegalArgumentException | IOException ex) {
             allMatches = false;
         }
         return user;
     }
 
     @Override
-    public  boolean isError(String url){
+    public boolean isError(String url) {
         return url.equals(URL_ERROR);
     }
 }

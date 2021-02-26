@@ -10,39 +10,40 @@ import java.util.ResourceBundle;
 import static java.util.Objects.isNull;
 
 public class UserValidator {
-    public static void validateUser(HttpServletRequest request, UserDto dto , boolean allMatches) throws IOException {
+    public static boolean validateUser(HttpServletRequest request, UserDto dto) throws IOException {
         ResourceBundle regex = ResourceBundle.getBundle("regexp");
-        //check fields filled
-        checkNotEmpty(dto.getFirs_name(),"nameEmpty",request , allMatches);
-        checkNotEmpty(dto.getLast_name(),"surnameEmpty",request, allMatches);
-        checkNotEmpty(dto.getUsername(),"emailEmpty",request, allMatches);
-        checkNotEmpty(dto.getPassword(),"passwordEmpty",request, allMatches);
-
-        //check fields corresponds to regex
-        if(allMatches) {
-            matchesRegex(dto.getFirs_name(),regex.getString("pattern.name"),"nameWrong",request, allMatches);
-            matchesRegex(dto.getLast_name(),regex.getString("pattern.name"),"surnameWrong",request, allMatches);
-            matchesRegex(dto.getUsername(),regex.getString("pattern.email.regexp"),"emailWrong",request, allMatches);
-            passwordMatching(dto.getPassword(),dto.getConfirmedPassword(),"passwordsNotEqual",request , allMatches);
-        }
+       boolean isFirstnameEmpty =  checkNotEmpty(dto.getFirs_name(),"nameEmpty",request);
+       boolean isLastnameEmpty = checkNotEmpty(dto.getLast_name(),"surnameEmpty",request);
+       boolean isUsernameEmpty =  checkNotEmpty(dto.getUsername(),"emailEmpty",request);
+       boolean isPasswordEmpty =  checkNotEmpty(dto.getPassword(),"passwordEmpty",request);
+       boolean isFirstNameCorrect = matchesRegex(dto.getFirs_name(),regex.getString("pattern.name"),"nameWrong",request);
+       boolean isLastNameCorrect =  matchesRegex(dto.getLast_name(),regex.getString("pattern.name"),"surnameWrong",request);
+       boolean isUserNameCorrect = matchesRegex(dto.getUsername(),regex.getString("pattern.email.regexp"),"emailWrong",request);
+       boolean isPasswordMatching = passwordMatching(dto.getPassword(),dto.getConfirmedPassword(),"passwordsNotEqual",request);
+       return isFirstNameCorrect && isLastNameCorrect && isUserNameCorrect
+               && isLastnameEmpty && isFirstnameEmpty && isPasswordEmpty && isUsernameEmpty
+               && isPasswordMatching;
     }
 
-    private static void  checkNotEmpty(String param, String emptyAttribute, ServletRequest request , boolean allMatches){
+    private static boolean  checkNotEmpty(String param, String emptyAttribute, ServletRequest request){
         if(isNull(param) || param.isEmpty()){
             request.setAttribute(emptyAttribute,true);
-            allMatches = false;
+            return false;
         }
+        return true;
     }
-    private  static void matchesRegex(String param, String regex ,String wrongRegexAttribute, ServletRequest request, boolean allMatches){
+    private  static boolean matchesRegex(String param, String regex ,String wrongRegexAttribute, ServletRequest request){
         if (!param.matches(regex)) {
             request.setAttribute(wrongRegexAttribute,true);
-            allMatches = false;
+            return false;
         }
+        return true;
     }
-    private  static void passwordMatching(String password, String confirm, String attribute, ServletRequest request, boolean allMatches){
+    private  static boolean passwordMatching(String password, String confirm, String attribute, ServletRequest request){
         if(!password.equals(confirm)){
             request.setAttribute(attribute,true);
-            allMatches = false;
+            return false;
         }
+        return  true;
     }
 }
