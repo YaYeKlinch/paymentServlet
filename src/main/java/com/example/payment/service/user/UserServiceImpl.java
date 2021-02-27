@@ -8,6 +8,7 @@ import com.example.payment.entity.User;
 import com.example.payment.entity.dto.UserDto;
 import com.example.payment.exception.EmailExistsException;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -45,6 +46,13 @@ public class UserServiceImpl implements UserService {
     public Optional<User> getUser(String email) {
         try (UserDao userDao = daoFactory.createUserDao()) {
             return userDao.findByUsername(email);
+        }
+    }
+
+    @Override
+    public List<User> findAllUsers() {
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            return userDao.findAll();
         }
     }
 

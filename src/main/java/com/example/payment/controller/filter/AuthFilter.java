@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/accounts/*","/user-payment" , "/make-payment" , "/add-payment"})
+@WebFilter(urlPatterns = {"/accounts/*","/user-payment" , "/make-payment" , "/add-payment" , "users"})
 public class AuthFilter implements Filter {
 
 
