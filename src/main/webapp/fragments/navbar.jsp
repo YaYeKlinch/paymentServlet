@@ -22,5 +22,9 @@
             <a class="nav-link" href="/login-page"><fmt:message key="login.tab"/></a>
         </li>
         </c:if>
+        <li class="nav-item">
+            <a href="?language=en">EN</a>
+            <a href="?language=ua">UA</a>
+        </li>
     </ul>
 </nav>
