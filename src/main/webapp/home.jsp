@@ -13,7 +13,7 @@
     <a href="/add-payment"><fmt:message key="addPayment.link"/></a>
     </c:if>
     </c:if>
-<table>
+<table  class="table">
     <tr>
         <th >  <fmt:message key="property.payments" /></th>
         <th >  <fmt:message key="purpose.payments" /></th>

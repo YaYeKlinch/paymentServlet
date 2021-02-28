@@ -7,7 +7,7 @@
 <body>
 <div class="container">
     <%@include file="fragments/navbar.jsp"%>
-    <table>
+    <table class="table">
         <tr>
             <th >  <fmt:message key="time.userPayment" /></th>
             <th >  <fmt:message key="account.costs" /></th>

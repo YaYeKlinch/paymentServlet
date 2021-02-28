@@ -10,7 +10,7 @@
 <div class="container">
     <%@include file="fragments/navbar.jsp"%>
 <a href="/accounts/cards/add-card?account_id=${account_id}"><fmt:message key="card.list"/></a>
-<table>
+<table class="table">
     <tr>
         <th >  <fmt:message key="account.number" /></th>
         <th >  <fmt:message key="card.endDate" /></th>

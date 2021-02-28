@@ -9,7 +9,7 @@
 <div class="container">
     <%@include file="fragments/navbar.jsp"%>
 <a href="/accounts/add-account"><fmt:message key="addAccount.link"/></a>
-<table>
+<table class="table">
     <tr>
         <th >  <fmt:message key="account.name" /></th>
         <th >  <fmt:message key="account.number" /></th>
