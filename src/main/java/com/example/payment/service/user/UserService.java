@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface UserService {
     boolean registerUser(UserDto userDto);
-    boolean checkRegistered(String username , String password);
     Optional<User> getUser(String email);
     List<User> findAllUsers();
     boolean changePermissionUser(User user);

@@ -7,6 +7,8 @@ import com.example.payment.service.user.UserService;
 import com.example.payment.service.user.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PostLogin implements PostCommand {
 
@@ -17,14 +19,28 @@ public class PostLogin implements PostCommand {
     public String execute(HttpServletRequest request) {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        if(userService.checkRegistered(email,password)){
-            userService.getUser(email).ifPresent(user -> {
+        Optional<User> userOptional = userService.getUser(email);
+        if(checkRegistered(email,password ,userOptional)){
+            if(!userOptional.get().isActive()){
+                request.setAttribute("UserIsBanned" , true);
+                return URL_ERROR;
+            }
+            userOptional.ifPresent(user -> {
                 request.getSession().setAttribute("LoggedUser",user);
             });
             request.setAttribute("logout" , false);
             return URL_SUCCESS;
         }
+        request.setAttribute("UserEx" , true);
         return URL_ERROR;
+    }
+
+    public boolean checkRegistered(String username, String password , Optional<User> userOptional) {
+        AtomicBoolean matches = new AtomicBoolean(false);
+        userOptional.ifPresent(user -> {
+            matches.set(password.equals(user.getPassword()));
+        });
+        return matches.get();
     }
     @Override
     public  boolean isError(String url){

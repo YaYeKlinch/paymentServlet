@@ -7,9 +7,15 @@
 </head>
 <body>
 <form method="POST" >
-
-    <c:if test="${!empty requestScope.requestedUrl}">
-        <input type="hidden" name="requestedUrl" value="${requestScope.requestedUrl}">
+    <c:if test="${!empty requestScope.UserIsBanned}">
+        <div class="alert-danger error-message" >
+            <fmt:message key="user.banned" />
+        </div>
+    </c:if>
+    <c:if test="${!empty requestScope.UserEx}">
+        <div class="alert-danger error-message" >
+            <fmt:message key="user.error" />
+        </div>
     </c:if>
     <div class="form-group">
         <input type="text" name="email" class="form-control" placeholder="<fmt:message key="text.email" />" value="" />

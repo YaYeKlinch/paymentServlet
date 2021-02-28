@@ -33,14 +33,6 @@ public class UserServiceImpl implements UserService {
             return userDao.create(userToCreate);
         }
     }
-    @Override
-    public boolean checkRegistered(String username, String password) {
-        AtomicBoolean matches = new AtomicBoolean(false);
-        getUser(username).ifPresent(user -> {
-            matches.set(password.equals(user.getPassword()));
-        });
-        return matches.get();
-    }
 
     @Override
     public Optional<User> getUser(String email) {
