@@ -8,7 +8,11 @@
 <body>
 <div class="container">
 <%@include file="fragments/navbar.jsp"%>
-    <a href="/add-payment"><fmt:message key="addPayment.link"/></a>
+    <c:if test="${sessionScope.LoggedUser!=null}">
+    <c:if test="${sessionScope.LoggedUser.role.name().equals('ADMIN')}">
+    <a href="/add-payment"><fmt:message key="addPayment.link"/></a
+    </c:if>
+    </c:if>
 <table>
     <tr>
         <th >  <fmt:message key="property.payments" /></th>

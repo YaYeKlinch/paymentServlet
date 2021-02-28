@@ -26,6 +26,15 @@
                     <td>${d.active}</td>
                     <td>
                         <a class="btn btn-outline-primary" href="/users/change-permission?user_id=${d.id}">
+                            <c:choose>
+                            <c:when test="${d.active}">
+                                <fmt:message key="ban.button"/>
+                            </c:when>
+                            <c:otherwise>
+                                <fmt:message key="unblock.button"/>
+                            </c:otherwise>
+                            </c:choose>
+                        </a>
                     </td>
                 </tr>
             </c:forEach>

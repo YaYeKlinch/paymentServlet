@@ -15,7 +15,11 @@
      <li class="nav-item">
          <a class="nav-link" href="/logout"><fmt:message key="logout.tab"/></a>
       </li>
-
+        <c:if test="${sessionScope.LoggedUser.role.name().equals('ADMIN')}">
+            <li class="nav-item">
+                <a class="nav-link" href="/users"><fmt:message key="users.tab"/></a>
+            </li>
+        </c:if>
         </c:if>
         <c:if test="${sessionScope.LoggedUser==null}">
         <li class="nav-item">
