@@ -22,7 +22,7 @@ public class UserDaoImpl  extends JDBCDao<User> implements UserDao {
                 "SELECT * FROM user",
                 "SELECT COUNT(*)FROM user",
                 "COUNT(*)",
-                "UPDATE user SET firs_name = ?, last_name = ?, active = ?, username = ?, password = ?, role = ? WHERE id = ?",
+                "UPDATE user SET firs_name = ?, last_name = ?, username = ?, password = ?, role = ?, active = ? WHERE id = ?",
                 7,
                 "DELETE FROM user WHERE id = ?",
                 new UserMapper());

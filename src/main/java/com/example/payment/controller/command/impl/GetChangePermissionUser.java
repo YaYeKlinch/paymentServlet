@@ -6,19 +6,18 @@ import com.example.payment.service.user.UserService;
 import com.example.payment.service.user.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
-import static com.example.payment.controller.command.uttils.SessionUtils.getUserId;
+public class GetChangePermissionUser implements Command {
 
-public class GetUsersPage implements Command {
+    private static final String URL = "/users.jsp";
     UserService userService = new UserServiceImpl();
     @Override
     public String execute(HttpServletRequest request) {
-        User user = getUserId(request);
-        List<User> users = userService.findAllUsers();
-        users.remove(user);
-        request.setAttribute("users" , users);
-        return "users.jsp";
+        long user_id =  Long.parseLong(request.getParameter("user_id"));
+        User user = userService.findById(user_id);
+        userService.changePermissionUser(user);
+        return URL;
     }
+
+
 }

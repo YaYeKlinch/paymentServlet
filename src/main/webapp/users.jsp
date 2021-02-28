@@ -24,6 +24,9 @@
                     <td>${d.username}</td>
                     <td>${d.role}</td>
                     <td>${d.active}</td>
+                    <td>
+                        <a class="btn btn-outline-primary" href="/users/change-permission?user_id=${d.id}">
+                    </td>
                 </tr>
             </c:forEach>
         </table>

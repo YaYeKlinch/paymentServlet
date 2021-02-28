@@ -11,4 +11,6 @@ public interface UserService {
     boolean checkRegistered(String username , String password);
     Optional<User> getUser(String email);
     List<User> findAllUsers();
+    boolean changePermissionUser(User user);
+    User findById(Long id);
 }

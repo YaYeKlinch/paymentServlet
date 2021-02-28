@@ -56,6 +56,21 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public boolean changePermissionUser(User user) {
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            user.setActive(!user.isActive());
+            return userDao.update(user);
+        }
+    }
+
+    @Override
+    public User findById(Long id) {
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            return userDao.findById(id).get();
+        }
+    }
+
     private boolean emailExists(String email, UserDao userDao) {
         return userDao.findByUsername(email).isPresent();
     }
