@@ -10,7 +10,7 @@
 <%@include file="fragments/navbar.jsp"%>
     <c:if test="${sessionScope.LoggedUser!=null}">
     <c:if test="${sessionScope.LoggedUser.role.name().equals('ADMIN')}">
-    <a href="/add-payment"><fmt:message key="addPayment.link"/></a
+    <a href="/add-payment"><fmt:message key="addPayment.link"/></a>
     </c:if>
     </c:if>
 <table>
