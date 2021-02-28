@@ -1,12 +1,12 @@
-package com.example.payment.controller.command.impl;
+package com.example.payment.controller.command.impl.payment;
 
 import com.example.payment.controller.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class GetMakingPayment implements Command {
+public class GetAddingPayment implements Command {
     @Override
     public String execute(HttpServletRequest request) {
-        return "makePayment.jsp";
+        return "/addPayment.jsp";
     }
 }

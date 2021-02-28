@@ -1,12 +1,12 @@
-package com.example.payment.controller.command.impl;
+package com.example.payment.controller.command.impl.account;
 
 import com.example.payment.controller.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class GetRegister implements Command {
+public class GetAddingAccount implements Command {
+    private static final String URL = "/addAccount.jsp";
 
-    private static final String URL = "/register.jsp";
     @Override
     public String execute(HttpServletRequest request) {
         return URL;

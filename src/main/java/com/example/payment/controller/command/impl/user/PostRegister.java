@@ -1,4 +1,4 @@
-package com.example.payment.controller.command.impl;
+package com.example.payment.controller.command.impl.user;
 
 import com.example.payment.controller.command.PostCommand;
 import com.example.payment.controller.command.impl.validators.UserValidator;

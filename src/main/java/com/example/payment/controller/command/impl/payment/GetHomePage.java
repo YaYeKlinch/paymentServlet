@@ -1,4 +1,4 @@
-package com.example.payment.controller.command.impl;
+package com.example.payment.controller.command.impl.payment;
 
 import com.example.payment.controller.command.Command;
 import com.example.payment.entity.Payment;

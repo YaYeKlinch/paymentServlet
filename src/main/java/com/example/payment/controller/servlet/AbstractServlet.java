@@ -1,9 +1,18 @@
 package com.example.payment.controller.servlet;
 
 import com.example.payment.controller.command.Command;
-import com.example.payment.controller.command.impl.GetLogout;
+import com.example.payment.controller.command.impl.account.*;
+import com.example.payment.controller.command.impl.user.*;
 import com.example.payment.controller.command.PostCommand;
-import com.example.payment.controller.command.impl.*;
+import com.example.payment.controller.command.impl.credit_card.GetAddingCard;
+import com.example.payment.controller.command.impl.credit_card.GetCardsPage;
+import com.example.payment.controller.command.impl.credit_card.PostAddingCard;
+import com.example.payment.controller.command.impl.payment.GetAddingPayment;
+import com.example.payment.controller.command.impl.payment.GetHomePage;
+import com.example.payment.controller.command.impl.payment.PostAddingPayment;
+import com.example.payment.controller.command.impl.user_payment.GetMakingPayment;
+import com.example.payment.controller.command.impl.user_payment.GetUserPaymentPage;
+import com.example.payment.controller.command.impl.user_payment.PostMakingPayment;
 
 import javax.servlet.http.HttpServlet;
 import java.util.HashMap;
