@@ -17,7 +17,9 @@ public class CreditCardDaoImpl extends JDBCDao<CreditCard> implements CreditCard
             "FROM credit_card LEFT JOIN account ON credit_card.account_id = account.id" +
             " WHERE card_type = ? AND credit_card.account_id = ?";
     private static final String FIND_MAX_NUMBER = "SELECT MAX(credit_card.number) AS maxNumber FROM credit_card";
-    private static final String FIND_BY_NUMBER = "SELECT * FROM credit_card WHERE number = ?";
+    private static final String FIND_BY_NUMBER = "SELECT * " +
+            "FROM credit_card LEFT JOIN account ON credit_card.account_id = account.id  " +
+            "WHERE credit_card.number = ?";
     public CreditCardDaoImpl(Connection connection) {
         super(connection,
                 "INSERT INTO credit_card(number, cvv, end_date, pin, account_id,card_type) VALUES(?,?,?,?,?,?)",

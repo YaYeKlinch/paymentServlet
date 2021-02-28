@@ -9,7 +9,11 @@ import java.util.Optional;
 
 public class UserPaymentDaoImpl  extends JDBCDao<UserPayment> implements UserPaymentDao {
 
-    private static final String ALL_PAYMENTS_BY_USER = "SELECT * FROM user_makes_payment WHERE user_id=?";
+    private static final String ALL_PAYMENTS_BY_USER = "SELECT * " +
+            "FROM ( user_makes_payment LEFT JOIN payment ON user_makes_payment.payment_id = payment.id ) " +
+            "LEFT JOIN (credit_card LEFT JOIN account ON credit_card.account_id = account.id) " +
+            "ON user_makes_payment.card_id = credit_card.id " +
+            " WHERE user_id=?";
     public UserPaymentDaoImpl(Connection connection) {
         super(connection,
                 "INSERT INTO user_makes_payment(costs, time, user_id, payment_id, card_id) VALUES(?,?,?,?,?)",
