@@ -13,7 +13,6 @@ import com.example.payment.service.payment.PaymentService;
 import com.example.payment.service.payment.PaymentServiceImpl;
 import com.example.payment.service.userPayment.UserPaymentService;
 import com.example.payment.service.userPayment.UserPaymentServiceImpl;
-import org.omg.CosNaming._BindingIteratorImplBase;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,7 +32,10 @@ public class PostMakingPayment implements PostCommand {
         Payment payment = paymentService.findById(paymentId);
         User user = getUserId(request);
         UserPaymentDto userPaymentDto = createDto(request);
-        CreditCard card = findCard(request , userPaymentDto);
+        CreditCard card = findCard(request , userPaymentDto , user);
+        if(!isCardOwnByUser(request,card,user)){
+            return URL_ERROR;
+        }
         if(card.getPin()!=userPaymentDto.getPin()){
             request.setAttribute("PinNotMatch" , true);
             return URL_ERROR;
@@ -58,7 +60,7 @@ public class PostMakingPayment implements PostCommand {
             return false;
         }
     }
-    private CreditCard findCard(HttpServletRequest request, UserPaymentDto userPaymentDto){
+    private CreditCard findCard(HttpServletRequest request, UserPaymentDto userPaymentDto, User user){
         CreditCard card = null;
         try {
            card = cardService.findByNumber(userPaymentDto.getNumber());
@@ -68,7 +70,13 @@ public class PostMakingPayment implements PostCommand {
         }
         return card;
     }
-
+    private boolean isCardOwnByUser(HttpServletRequest request, CreditCard card, User user){
+        if(card.getAccount().getUser() != user.getId()){
+            request.setAttribute("CardNotFind",true);
+            return false;
+        }
+        return true;
+    }
     private UserPaymentDto createDto(HttpServletRequest request){
        UserPaymentDto userPaymentDto = null;
         try {
