@@ -7,6 +7,7 @@ import com.example.payment.entity.dto.PaymentDto;
 import com.example.payment.exception.AccountExistException;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PaymentServiceImpl implements PaymentService{
     DaoFactory daoFactory = DaoFactory.getInstance();
@@ -19,9 +20,9 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
     @Override
-    public Payment findById(long id) {
+    public Optional<Payment> findById(long id) {
         try (PaymentDao paymentDao = daoFactory.createPaymentDao()){
-            return paymentDao.findById(id).orElseThrow(NullPointerException::new);
+            return paymentDao.findById(id);
         }
     }
 

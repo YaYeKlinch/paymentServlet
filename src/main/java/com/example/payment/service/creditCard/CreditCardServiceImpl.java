@@ -10,6 +10,7 @@ import com.example.payment.exception.AccountExistException;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public class CreditCardServiceImpl implements CreditCardService{
     private static final int END_DATA = 4;
@@ -39,9 +40,9 @@ public class CreditCardServiceImpl implements CreditCardService{
     }
 
     @Override
-    public CreditCard findByNumber(long number) {
+    public Optional<CreditCard> findByNumber(long number) {
         try (CreditCardDao cardDao = daoFactory.createCreditCardDao()){
-            return cardDao.findByNumber(number).orElseThrow(NullPointerException::new);
+            return cardDao.findByNumber(number);
         }
     }
 

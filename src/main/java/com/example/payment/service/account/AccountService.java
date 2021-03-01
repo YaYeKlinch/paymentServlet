@@ -5,11 +5,12 @@ import com.example.payment.entity.User;
 import com.example.payment.entity.dto.AccountDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AccountService {
     List<Account> findAllAccountsByUser(Long userId);
     boolean createAccount(AccountDto accountDto , User user);
-    Account findAccountById(Long id);
+    Optional<Account> findAccountById(Long id);
     void increaseCosts(Account account , int costs);
     void spendMoney(Account account , int costs);
 }

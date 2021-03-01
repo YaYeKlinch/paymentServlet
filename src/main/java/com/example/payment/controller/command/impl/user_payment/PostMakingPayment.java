@@ -29,10 +29,13 @@ public class PostMakingPayment implements PostCommand {
     @Override
     public String execute(HttpServletRequest request) {
         long paymentId = Long.parseLong(request.getParameter("payment_id"));
-        Payment payment = paymentService.findById(paymentId);
+        Payment payment = paymentService.findById(paymentId).get();
         User user = getUserId(request);
         UserPaymentDto userPaymentDto = createDto(request);
         CreditCard card = findCard(request , userPaymentDto , user);
+        if(!allMatches){
+            return URL_ERROR;
+        }
         if(!isCardOwnByUser(request,card,user)){
             return URL_ERROR;
         }
@@ -44,14 +47,12 @@ public class PostMakingPayment implements PostCommand {
             accountService.spendMoney(card.getAccount() , userPaymentDto.getCosts());
             return URL_SUCCESS;
         }
-
         return URL_ERROR;
     }
     @Override
     public boolean isError(String url) {
         return url.equals(URL_ERROR);
     }
-
     private boolean tryCreateUserPayment(HttpServletRequest request , Payment payment , UserPaymentDto userPaymentDto , CreditCard card , User user){
         if(userPaymentService.createUserPayment(userPaymentDto,card,payment,user)){
             return true;
@@ -63,7 +64,7 @@ public class PostMakingPayment implements PostCommand {
     private CreditCard findCard(HttpServletRequest request, UserPaymentDto userPaymentDto, User user){
         CreditCard card = null;
         try {
-           card = cardService.findByNumber(userPaymentDto.getNumber());
+           card = cardService.findByNumber(userPaymentDto.getNumber()).orElseThrow(Exception::new);
         }catch (Exception ex){
             allMatches = false;
             request.setAttribute("CardNotFind",true);
@@ -71,11 +72,11 @@ public class PostMakingPayment implements PostCommand {
         return card;
     }
     private boolean isCardOwnByUser(HttpServletRequest request, CreditCard card, User user){
-        if(card.getAccount().getUser() != user.getId()){
-            request.setAttribute("CardNotFind",true);
-            return false;
-        }
-        return true;
+            if(card.getAccount().getUser() != user.getId()){
+                request.setAttribute("CardNotFind",true);
+                return false;
+            }
+            return true;
     }
     private UserPaymentDto createDto(HttpServletRequest request){
        UserPaymentDto userPaymentDto = null;
@@ -84,7 +85,6 @@ public class PostMakingPayment implements PostCommand {
                     Long.parseLong(request.getParameter("number")),
                     Integer.parseInt(request.getParameter("costs")),
                     Integer.parseInt(request.getParameter("pin")));
-
         }catch (Exception ex){
             allMatches = false;
         }

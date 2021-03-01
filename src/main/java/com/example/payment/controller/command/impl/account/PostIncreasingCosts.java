@@ -26,7 +26,7 @@ public class PostIncreasingCosts implements PostCommand {
         boolean isCorrect = AccountValidator.validateCosts(costs ,request);
         try {
             if(isCorrect){
-                Account account = accountService.findAccountById(accountId);
+                Account account = accountService.findAccountById(accountId).orElseThrow(Exception::new);
                 accountService.increaseCosts(account , costs);
                 increased = true;
             }

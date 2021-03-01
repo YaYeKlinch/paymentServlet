@@ -8,6 +8,7 @@ import com.example.payment.entity.dto.AccountDto;
 import com.example.payment.exception.AccountExistException;
 
 import java.util.List;
+import java.util.Optional;
 
 public class AccountServiceImpl implements AccountService{
 
@@ -37,9 +38,9 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Account findAccountById(Long id) {
+    public Optional<Account> findAccountById(Long id) {
         try (AccountDao accountDao = daoFactory.createAccountDao()){
-            return accountDao.findById(id).orElseThrow(NullPointerException::new);
+            return accountDao.findById(id);
         }
     }
 

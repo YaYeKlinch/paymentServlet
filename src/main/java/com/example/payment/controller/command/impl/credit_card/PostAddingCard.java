@@ -43,9 +43,9 @@ public class PostAddingCard implements PostCommand {
         boolean registered = false;
         if (allMatches) {
             try {
-                Account account = accountService.findAccountById(accountId);
+                Account account = accountService.findAccountById(accountId).orElseThrow(Exception::new);
                 registered = tryCreateOrAddCreationErrorAttr(cardDto, request, account);
-            } catch (AccountExistException ex) {
+            } catch (Exception ex) {
                 request.setAttribute("cardCreateEx", true);
             }
 
